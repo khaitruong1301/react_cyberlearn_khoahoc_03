@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './UserProfile.css'
+import Swal from 'sweetalert2'
 
 
 export default class UserProfile extends Component {
@@ -14,7 +15,6 @@ export default class UserProfile extends Component {
             email: '',
             passWord: '',
             passWordConfirm: '',
-            errFirstName: ''
         },
         errors: {
             firstName: '',
@@ -23,7 +23,6 @@ export default class UserProfile extends Component {
             email: '',
             passWord: '',
             passWordConfirm: '',
-            errFirstName: ''
         }
 
     }
@@ -37,7 +36,10 @@ export default class UserProfile extends Component {
 
         if (value.trim() === '') {
             newErrors[name] = name + ' is required !'
+        } else {
+            newErrors[name] = '';
         }
+
 
         if (type === 'email') {
             const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -47,13 +49,11 @@ export default class UserProfile extends Component {
             } else {
                 newErrors[name] = ''; //Nếu email hợp lệ 
             }
-
         }
-
         if (name === 'passWordConfirm') {
-            if(value === newValue['passWord']){
+            if (value === newValue['passWord']) {
                 newErrors[name] = '';
-            }else {
+            } else {
                 newErrors[name] = name + ' is invalid';
             }
         }
@@ -63,26 +63,70 @@ export default class UserProfile extends Component {
             errors: newErrors
         })
 
-        // if (value === '') {
-        //     this.setState({
-        //         errors: { ...this.state.errors, [name]: 'Không được bỏ trống' }
-        //     })
-        // } else {
-        //     this.setState({
-        //         errors: { ...this.state.errors, [name]: '' }
-        //     })
-        // }
     }
+
+    handleSubmit = (event) => {
+        //Cản trình duyệt submit reload lại trang
+        event.preventDefault();
+        //Xét điều kiện khi submit
+        let { values, errors } = this.state;
+        //Biến xác định form hợp lệ
+        let valid = true;
+        let profileContent = '';
+        let errorsContent = '';
+        for (let key in values) {
+            if (values[key] === '') {
+                valid = false;
+                errorsContent += `
+                <p class="text-left"> <b class="text-danger">${key} is invalid!</b></p>`;
+                valid = false;
+            }
+
+            profileContent += `
+                <p class="text-left"> <b>${key}:</b> ${values[key]}</p>
+            `
+        }
+
+        for (let key in errors) {
+            if (errors[key] !== '') {
+                errorsContent += `
+                <p class="text-left"> <b class="text-danger">${key} is invalid!</b></p>`;
+                valid = false;
+            }
+
+
+        }
+
+        if (!valid) {
+
+            Swal.fire({
+                title: 'Your profile!',
+                html: errorsContent,
+                icon: 'error', //success, error, warning, question
+                confirmButtonText: 'OK'
+            })
+            return;
+        }
+
+        // alert('Thành công!')
+        Swal.fire({
+            title: 'Your profile!',
+            html: profileContent,
+            icon: 'success', //success, error, warning, question
+            confirmButtonText: 'OK'
+        })
+    }
+
 
     render() {
         return (
             <div className="container-fluid" style={{ backgroundColor: '#EEEEEE', display: 'flex', justifyContent: 'center' }}>
-                <form style={{ fontSize: 'font-family: "Google Sans", "Noto Sans Myanmar UI", arial, sans-serif', width: 600 }} className=" bg-white p-5 m-5" >
+                <form onSubmit={this.handleSubmit} style={{ fontSize: 'font-family: "Google Sans", "Noto Sans Myanmar UI", arial, sans-serif', width: 600 }} className=" bg-white p-5 m-5" >
                     <h1 className="text-center mt-0 mb-5">User Profile</h1>
                     <div className="row">
                         <div className="col-6">
                             <div className="group">
-                                <input value={this.state.values.firstName} type="text" name="firstName" required onChange={this.handleChangeValue} />
+                                <input value={this.state.values.firstName} type="text" required name="firstName" onChange={this.handleChangeValue} />
                                 <span className="highlight" />
                                 <span className="bar" />
                                 <label>firstName</label>
