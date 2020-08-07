@@ -10,7 +10,9 @@ import { TextField, Label, Input } from '../../ComponentsToDoList/TextField';
 import { Button } from '../../ComponentsToDoList/Button';
 import { Table, Tr, Td, Th, Thead, Tbody } from '../../ComponentsToDoList/Table';
 import { connect } from 'react-redux';
-import {addTaskAction} from '../../../redux/actions/ToDoListActions'
+import {addTaskAction, changeThemeAction} from '../../../redux/actions/ToDoListActions'
+import {arrTheme} from '../../../JSS_StyledComponent/Themes/ThemeManager'
+
 class ToDoList extends Component {
 
     state = {
@@ -51,14 +53,27 @@ class ToDoList extends Component {
     //     })
     // }
 
+
+    //Viết hàm render theme import ThemeManger
+    renderTheme = () => {
+        return arrTheme.map((theme,index)=>{
+            return <option value={theme.id}>{theme.name}</option>
+        })
+    }
+
     render() {
         return (
             <ThemeProvider theme={this.props.themeToDoList}>
                 <Container className="w-50">
-                    <Dropdown>
-                        <option>Dark theme</option>
-                        <option>Light theme</option>
-                        <option>Primary theme</option>
+                    <Dropdown onChange={(e) => {
+                        let {value} = e.target;
+                        //Dispatch value lên reducer
+
+                        this.props.dispatch(changeThemeAction(value))
+
+
+                    }}>
+                        {this.renderTheme()}
                     </Dropdown>
                     <Heading3>To do list</Heading3>
                     <TextField onChange={(e)=>{

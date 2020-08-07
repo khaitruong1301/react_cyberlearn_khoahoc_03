@@ -1,5 +1,6 @@
 import { ToDoListDarkTheme } from "../../JSS_StyledComponent/Themes/ToDoListDarkTheme"
-import { add_task } from "../types/ToDoListTypes"
+import { add_task, change_theme } from "../types/ToDoListTypes"
+import {arrTheme} from '../../JSS_StyledComponent/Themes/ThemeManager'
 
 const initialState = {
     themeToDoList: ToDoListDarkTheme,
@@ -37,6 +38,17 @@ export default (state = initialState, action) => {
             state.taskList = taskListUpdate;
 
             return {...state}
+        }
+        case change_theme: {
+            //Tìm theme dựa vào action.themeId được chọn
+            let theme = arrTheme.find(theme=>theme.id == action.themeId);
+            if(theme){
+                console.log(theme);
+                //set Lại theme cho state.themeToDoList
+                state.themeToDoList = {...theme.theme};
+            }
+
+            return {...state};
         }
    
     default:
