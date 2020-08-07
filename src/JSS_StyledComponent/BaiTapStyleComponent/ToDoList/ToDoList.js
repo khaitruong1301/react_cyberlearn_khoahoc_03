@@ -10,13 +10,13 @@ import { TextField, Label, Input } from '../../ComponentsToDoList/TextField';
 import { Button } from '../../ComponentsToDoList/Button';
 import { Table, Tr, Td, Th, Thead, Tbody } from '../../ComponentsToDoList/Table';
 import { connect } from 'react-redux';
-import {addTaskAction, changeThemeAction} from '../../../redux/actions/ToDoListActions'
-import {arrTheme} from '../../../JSS_StyledComponent/Themes/ThemeManager'
+import { addTaskAction, changeThemeAction, doneTaskAction, deleteTaskAction } from '../../../redux/actions/ToDoListActions'
+import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager'
 
 class ToDoList extends Component {
 
     state = {
-        taskName:''
+        taskName: ''
     }
 
     renderTaskToDo = () => {
@@ -25,8 +25,12 @@ class ToDoList extends Component {
                 <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
                 <Th className="text-right">
                     <Button className="ml-1"><i className="fa fa-edit"></i></Button>
-                    <Button className="ml-1"><i className="fa fa-check"></i></Button>
-                    <Button className="ml-1"><i className="fa fa-trash"></i></Button>
+                    <Button onClick={() => {
+                        this.props.dispatch(doneTaskAction(task.id))
+                    }} className="ml-1"><i className="fa fa-check"></i></Button>
+                    <Button onClick={() => {
+                        this.props.dispatch(deleteTaskAction(task.id))
+                    }} className="ml-1"><i className="fa fa-trash"></i></Button>
 
                 </Th>
             </Tr>
@@ -38,8 +42,9 @@ class ToDoList extends Component {
             return <Tr key={index}>
                 <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
                 <Th className="text-right">
-
-                    <Button className="ml-1"><i className="fa fa-trash"></i></Button>
+                    <Button onClick={() => {
+                        this.props.dispatch(deleteTaskAction(task.id))
+                    }} className="ml-1"><i className="fa fa-trash"></i></Button>
 
                 </Th>
             </Tr>
@@ -56,7 +61,7 @@ class ToDoList extends Component {
 
     //Viết hàm render theme import ThemeManger
     renderTheme = () => {
-        return arrTheme.map((theme,index)=>{
+        return arrTheme.map((theme, index) => {
             return <option value={theme.id}>{theme.name}</option>
         })
     }
@@ -66,7 +71,7 @@ class ToDoList extends Component {
             <ThemeProvider theme={this.props.themeToDoList}>
                 <Container className="w-50">
                     <Dropdown onChange={(e) => {
-                        let {value} = e.target;
+                        let { value } = e.target;
                         //Dispatch value lên reducer
 
                         this.props.dispatch(changeThemeAction(value))
@@ -76,24 +81,24 @@ class ToDoList extends Component {
                         {this.renderTheme()}
                     </Dropdown>
                     <Heading3>To do list</Heading3>
-                    <TextField onChange={(e)=>{
+                    <TextField onChange={(e) => {
                         this.setState({
-                            taskName:e.target.value
+                            taskName: e.target.value
                         })
                     }} name="taskName" label="Task name" className="w-50" />
 
-                    <Button onClick={()=>{
+                    <Button onClick={() => {
                         //Lấy thông tin người dùng nhập vào từ input
-                        let {taskName} = this.state; 
+                        let { taskName } = this.state;
                         //Tạo ra 1 task object
                         let newTask = {
-                            id:Date.now(),
-                            taskName:taskName,
-                            done:false
+                            id: Date.now(),
+                            taskName: taskName,
+                            done: false
                         }
                         // console.log(newTask)
                         //Đưa task object lên redux thông qua phương thức dispatch
-                        
+
                         this.props.dispatch(addTaskAction(newTask))
 
 
