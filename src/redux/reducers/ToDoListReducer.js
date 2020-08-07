@@ -48,7 +48,7 @@ export default (state = initialState, action) => {
                 state.themeToDoList = {...theme.theme};
             }
 
-            return {...state};
+            return {...state}; 
         }
    
     default:
