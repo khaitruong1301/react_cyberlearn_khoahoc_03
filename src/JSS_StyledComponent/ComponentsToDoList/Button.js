@@ -10,7 +10,7 @@ export const Button = styled.button`
     font-size:17px;
     &:hover {
         color: ${props => props.theme.hoverTextColor};
-        background-color:${props => props.bgColor};
+        background-color:${props => props.theme.hoverBgColor};
         border: ${props => props.theme.borderButton};
     };
 `;
