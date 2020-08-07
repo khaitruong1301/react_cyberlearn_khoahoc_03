@@ -10,7 +10,7 @@ import { TextField, Label, Input } from '../../ComponentsToDoList/TextField';
 import { Button } from '../../ComponentsToDoList/Button';
 import { Table, Tr, Td, Th, Thead, Tbody } from '../../ComponentsToDoList/Table';
 import { connect } from 'react-redux';
-import { addTaskAction, changeThemeAction, doneTaskAction, deleteTaskAction } from '../../../redux/actions/ToDoListActions'
+import { addTaskAction, changeThemeAction, doneTaskAction, deleteTaskAction, editTaskAction } from '../../../redux/actions/ToDoListActions'
 import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager'
 
 class ToDoList extends Component {
@@ -24,10 +24,16 @@ class ToDoList extends Component {
             return <Tr key={index}>
                 <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
                 <Th className="text-right">
-                    <Button className="ml-1"><i className="fa fa-edit"></i></Button>
+                    <Button onClick={()=>{
+                        this.props.dispatch(editTaskAction(task))
+                    }} className="ml-1"><i className="fa fa-edit"></i></Button>
+
+
                     <Button onClick={() => {
                         this.props.dispatch(doneTaskAction(task.id))
                     }} className="ml-1"><i className="fa fa-check"></i></Button>
+
+
                     <Button onClick={() => {
                         this.props.dispatch(deleteTaskAction(task.id))
                     }} className="ml-1"><i className="fa fa-trash"></i></Button>
@@ -81,7 +87,7 @@ class ToDoList extends Component {
                         {this.renderTheme()}
                     </Dropdown>
                     <Heading3>To do list</Heading3>
-                    <TextField onChange={(e) => {
+                    <TextField value={this.props.taskEdit.taskName} onChange={(e) => {
                         this.setState({
                             taskName: e.target.value
                         })
@@ -129,7 +135,8 @@ class ToDoList extends Component {
 const mapStateToProps = state => {
     return {
         themeToDoList: state.ToDoListReducer.themeToDoList,
-        taskList: state.ToDoListReducer.taskList
+        taskList: state.ToDoListReducer.taskList,
+        taskEdit:state.ToDoListReducer.taskEdit
     }
 }
 
