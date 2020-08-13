@@ -1,5 +1,5 @@
 import { ToDoListDarkTheme } from "../../JSS_StyledComponent/Themes/ToDoListDarkTheme"
-import { add_task, change_theme, delete_task, done_task, edit_task,update_task } from "../types/ToDoListTypes"
+import { add_task, change_theme, delete_task, done_task, edit_task, update_task } from "../types/ToDoListTypes"
 import { arrTheme } from '../../JSS_StyledComponent/Themes/ThemeManager'
 
 const initialState = {
@@ -11,8 +11,8 @@ const initialState = {
         { id: 'task-4', taskName: 'task 4', done: false },
 
     ],
-    taskEdit: { id: 'task-1', taskName: 'task 1', done: false },
-    
+    taskEdit: { id: '-1', taskName: '', done: false },
+
 }
 
 
@@ -96,6 +96,7 @@ export default (state = initialState, action) => {
             }
 
             state.taskList = taskListUpdate;
+            state.taskEdit = {id:'-1',taskName:'',done:false}
 
             return { ...state }
 

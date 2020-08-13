@@ -16,7 +16,9 @@ import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager'
 class ToDoList extends Component {
 
     state = {
-        taskName: ''
+        taskName: '',
+        disabled: true
+
     }
 
     renderTaskToDo = () => {
@@ -25,7 +27,13 @@ class ToDoList extends Component {
                 <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
                 <Th className="text-right">
                     <Button onClick={() => {
-                        this.props.dispatch(editTaskAction(task))
+
+                        this.setState({
+                            disabled: false
+                        }, () => {
+                            this.props.dispatch(editTaskAction(task))
+                        })
+
                     }} className="ml-1"><i className="fa fa-edit"></i></Button>
 
 
@@ -137,9 +145,24 @@ class ToDoList extends Component {
 
 
                     }} className="ml-2"><i className="fa fa-plus"></i> Add task</Button>
-                    <Button onClick={()=>{
-                        this.props.dispatch(updateTask(this.state.taskName))
-                    }} className="ml-2"><i className="fa fa-upload"></i> Update task</Button>
+                    {
+                        this.state.disabled ? <Button disabled onClick={() => {
+
+                            this.props.dispatch(updateTask(this.state.taskName))
+                        }} className="ml-2"><i className="fa fa-upload"></i> Update task</Button> :
+                            <Button onClick={() => {
+                                let {taskName} = this.state;
+                                this.setState({
+                                    disabled: true,
+                                    taskName:''
+                                }, () => {
+                                    this.props.dispatch(updateTask(taskName))
+                                })
+
+                            }} className="ml-2"><i className="fa fa-upload"></i> Update task</Button>
+
+                    }
+
                     <hr />
                     <Heading3>Task to do</Heading3>
                     <Table>
@@ -165,14 +188,13 @@ class ToDoList extends Component {
     componentDidUpdate(prevProps, prevState) {
 
         //So sánh nếu như props trước đó (taskEdit trước mà khác taskEdit hiện tại thì mình mới setState)
-        if (prevProps.taskEdit.id !== this.props.taskEdit.id) {
+        if (prevProps.taskEdit.id !== this.props.taskEdit.id ) {
             this.setState({
                 taskName: this.props.taskEdit.taskName
             })
-
         }
 
-
+     
 
     }
 
