@@ -1,5 +1,5 @@
 import { ToDoListDarkTheme } from "../../JSS_StyledComponent/Themes/ToDoListDarkTheme"
-import { add_task, change_theme, delete_task, done_task, edit_task } from "../types/ToDoListTypes"
+import { add_task, change_theme, delete_task, done_task, edit_task,update_task } from "../types/ToDoListTypes"
 import { arrTheme } from '../../JSS_StyledComponent/Themes/ThemeManager'
 
 const initialState = {
@@ -11,8 +11,8 @@ const initialState = {
         { id: 'task-4', taskName: 'task 4', done: false },
 
     ],
-    taskEdit:{ id: 'task-1', taskName: 'task 1', done: false },
-
+    taskEdit: { id: 'task-1', taskName: 'task 1', done: false },
+    
 }
 
 
@@ -75,8 +75,33 @@ export default (state = initialState, action) => {
             return { ...state, taskList: state.taskList.filter(task => task.id !== action.taskId) }
         }
 
-        case edit_task : {
-            return {...state,taskEdit:action.task}
+        case edit_task: {
+            return { ...state, taskEdit: action.task }
+        }
+
+        case update_task: {
+            // console.log(action.taskName)
+            //Chỉnh sửa lại taskName của taskEdit
+            state.taskEdit = { ...state.taskEdit, taskName: action.taskName };
+
+            //Tìm trong taskList cập nhật lại taskEdit người dùng update
+            let taskListUpdate = [...state.taskList];
+
+            let index = taskListUpdate.findIndex(task => task.id === state.taskEdit.id);
+
+            console.log(index);
+
+            if (index !== -1) {
+                taskListUpdate[index] = state.taskEdit;
+            }
+
+            state.taskList = taskListUpdate;
+
+            return { ...state }
+
+
+
+
         }
 
         default:

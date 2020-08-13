@@ -10,7 +10,7 @@ import { TextField, Label, Input } from '../../ComponentsToDoList/TextField';
 import { Button } from '../../ComponentsToDoList/Button';
 import { Table, Tr, Td, Th, Thead, Tbody } from '../../ComponentsToDoList/Table';
 import { connect } from 'react-redux';
-import { addTaskAction, changeThemeAction, doneTaskAction, deleteTaskAction, editTaskAction } from '../../../redux/actions/ToDoListActions'
+import { addTaskAction, changeThemeAction, doneTaskAction, deleteTaskAction, editTaskAction, updateTask } from '../../../redux/actions/ToDoListActions'
 import { arrTheme } from '../../../JSS_StyledComponent/Themes/ThemeManager'
 
 class ToDoList extends Component {
@@ -24,7 +24,7 @@ class ToDoList extends Component {
             return <Tr key={index}>
                 <Th style={{ verticalAlign: 'middle' }}>{task.taskName}</Th>
                 <Th className="text-right">
-                    <Button onClick={()=>{
+                    <Button onClick={() => {
                         this.props.dispatch(editTaskAction(task))
                     }} className="ml-1"><i className="fa fa-edit"></i></Button>
 
@@ -68,7 +68,7 @@ class ToDoList extends Component {
     //Viết hàm render theme import ThemeManger
     renderTheme = () => {
         return arrTheme.map((theme, index) => {
-            return <option value={theme.id}>{theme.name}</option>
+            return <option key={index} value={theme.id}>{theme.name}</option>
         })
     }
 
@@ -80,6 +80,22 @@ class ToDoList extends Component {
     //         taskName:newProps.taskEdit.taskName
     //     })
     // }
+
+    // //Lifecycle tĩnh không truy xuất được trỏ this
+    // static getDerivedStateFromProps(newProps,currentState){
+    //     //newProps: là props mới, props cũ là this.props (không truy xuất được)
+    //     //currentState: ứng với state hiện tại this.state
+
+    //     //hoặc trả về state mới (this.state)
+    //     let newState = {...currentState,taskName: newProps.taskEdit.taskName}
+    //     return newState;
+
+    //     //trả về null state giữ nguyên
+    //     // return null;
+
+    // } 
+
+
 
     render() {
         return (
@@ -99,7 +115,7 @@ class ToDoList extends Component {
                     <TextField value={this.state.taskName} onChange={(e) => {
                         this.setState({
                             taskName: e.target.value
-                        },()=>{
+                        }, () => {
                             console.log(this.state)
                         })
                     }} name="taskName" label="Task name" className="w-50" />
@@ -121,7 +137,9 @@ class ToDoList extends Component {
 
 
                     }} className="ml-2"><i className="fa fa-plus"></i> Add task</Button>
-                    <Button className="ml-2"><i className="fa fa-upload"></i> Update task</Button>
+                    <Button onClick={()=>{
+                        this.props.dispatch(updateTask(this.state.taskName))
+                    }} className="ml-2"><i className="fa fa-upload"></i> Update task</Button>
                     <hr />
                     <Heading3>Task to do</Heading3>
                     <Table>
@@ -140,6 +158,26 @@ class ToDoList extends Component {
             </ThemeProvider>
         )
     }
+
+
+
+    //Đây là lifecycle trả về props cũ và state cũ của component trước khi render (lifecycle này chạy sau render)
+    componentDidUpdate(prevProps, prevState) {
+
+        //So sánh nếu như props trước đó (taskEdit trước mà khác taskEdit hiện tại thì mình mới setState)
+        if (prevProps.taskEdit.id !== this.props.taskEdit.id) {
+            this.setState({
+                taskName: this.props.taskEdit.taskName
+            })
+
+        }
+
+
+
+    }
+
+
+
 }
 
 
@@ -147,9 +185,13 @@ const mapStateToProps = state => {
     return {
         themeToDoList: state.ToDoListReducer.themeToDoList,
         taskList: state.ToDoListReducer.taskList,
-        taskEdit:state.ToDoListReducer.taskEdit
+        taskEdit: state.ToDoListReducer.taskEdit
     }
 }
 
 
 export default connect(mapStateToProps)(ToDoList)
+
+
+
+
