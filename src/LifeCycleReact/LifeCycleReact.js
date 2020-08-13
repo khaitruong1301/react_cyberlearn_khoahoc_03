@@ -13,6 +13,7 @@ export default class LifeCycleReact extends Component {
     }
 
 
+    
 
     //Được gọi khi component này được sử dụng trên DOM (giao diện của app)
     static getDerivedStateFromProps(newProps,currentState){

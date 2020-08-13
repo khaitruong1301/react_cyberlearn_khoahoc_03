@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
 
 export default class ChildComponent extends Component {
+
+    
+    //Được gọi khi component này được sử dụng trên DOM (giao diện của app)
+    static getDerivedStateFromProps(newProps,currentState){
+        console.log('getDerivedStateFromProps_child')
+        return null;
+    }
+
     render() {
         console.log('renderChildComponent');
         return (
@@ -33,6 +41,9 @@ export default class ChildComponent extends Component {
 
             </div>
         )
+    }
+    componentDidMount(){
+        console.log('componentDidMount_child')
     }
 
 

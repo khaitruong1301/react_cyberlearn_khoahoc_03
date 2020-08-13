@@ -72,6 +72,15 @@ class ToDoList extends Component {
         })
     }
 
+    //Life cycle bảng 16 nhận vào props mới được thực thi trước render
+    // componentWillReceiveProps(newProps) {
+    //     console.log('this.props',this.props);
+    //     console.log('newProps',newProps);
+    //     this.setState({
+    //         taskName:newProps.taskEdit.taskName
+    //     })
+    // }
+
     render() {
         return (
             <ThemeProvider theme={this.props.themeToDoList}>
@@ -87,9 +96,11 @@ class ToDoList extends Component {
                         {this.renderTheme()}
                     </Dropdown>
                     <Heading3>To do list</Heading3>
-                    <TextField value={this.props.taskEdit.taskName} onChange={(e) => {
+                    <TextField value={this.state.taskName} onChange={(e) => {
                         this.setState({
                             taskName: e.target.value
+                        },()=>{
+                            console.log(this.state)
                         })
                     }} name="taskName" label="Task name" className="w-50" />
 
