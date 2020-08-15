@@ -1,18 +1,34 @@
 import React, { Component } from 'react'
-
+import _ from 'lodash'
 export default class ChildComponent extends Component {
 
-    
+
+
+
     //Được gọi khi component này được sử dụng trên DOM (giao diện của app)
-    static getDerivedStateFromProps(newProps,currentState){
+    static getDerivedStateFromProps(newProps, currentState) {
         console.log('getDerivedStateFromProps_child')
         return null;
     }
+
+    shouldComponentUpdate(newProps, newState) {
+
+        console.log('newProps',newProps);
+        console.log('this.props',this.props)
+
+        if (!_.isEqual(newProps, this.props)) {
+            return true;
+        }
+        return false;
+    }
+
 
     render() {
         console.log('renderChildComponent');
         return (
             <div>
+                <h3>new Product child: {this.props.product.name}</h3>
+
                 <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
                     <a className="navbar-brand" href="#">Navbar</a>
                     <button className="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation" />
@@ -42,12 +58,12 @@ export default class ChildComponent extends Component {
             </div>
         )
     }
-    componentDidMount(){
+    componentDidMount() {
         console.log('componentDidMount_child')
     }
 
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log('componentWillUnmount')
     }
 }
