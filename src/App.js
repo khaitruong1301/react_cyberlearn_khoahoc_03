@@ -4,6 +4,7 @@ import DemoJSS from './JSS_StyledComponent/DemoJSS/DemoJSS'
 import DemoTheme from './JSS_StyledComponent/Themes/DemoTheme'
 import ToDoList from './JSS_StyledComponent/BaiTapStyleComponent/ToDoList/ToDoList'
 import LifeCycleReact from './LifeCycleReact/LifeCycleReact'
+import DemoHookUseState from './Hooks/DemoHookUseState'
 
 export default class App extends Component {
 
@@ -15,7 +16,8 @@ export default class App extends Component {
           {/* <DemoJSS /> */}
           {/* <DemoTheme /> */}
           {/* <ToDoList /> */}
-          <LifeCycleReact />
+          {/* <LifeCycleReact /> */}
+          <DemoHookUseState />
       </div>
     )
   }
