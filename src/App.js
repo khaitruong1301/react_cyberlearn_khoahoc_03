@@ -21,7 +21,7 @@ export default class App extends Component {
           {/* <LifeCycleReact /> */}
           {/* <DemoHookUseState /> */}
           {/* <DemoHookUseEffect /> */}
-          <DemoHookUseCallBack />
+          <DemoHookUseCallBack /> 
       </div>
     )
   }
