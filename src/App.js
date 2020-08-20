@@ -6,6 +6,7 @@ import ToDoList from './JSS_StyledComponent/BaiTapStyleComponent/ToDoList/ToDoLi
 import LifeCycleReact from './LifeCycleReact/LifeCycleReact'
 import DemoHookUseState from './Hooks/DemoHookUseState'
 import DemoHookUseEffect from './Hooks/DemoHookUseEffect'
+import DemoHookUseCallBack from './Hooks/DemoHookUseCallBack'
 
 export default class App extends Component {
 
@@ -19,7 +20,8 @@ export default class App extends Component {
           {/* <ToDoList /> */}
           {/* <LifeCycleReact /> */}
           {/* <DemoHookUseState /> */}
-          <DemoHookUseEffect />
+          {/* <DemoHookUseEffect /> */}
+          <DemoHookUseCallBack />
       </div>
     )
   }
