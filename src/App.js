@@ -10,13 +10,15 @@ import DemoHookUseCallBack from './Hooks/DemoHookUseCallBack'
 import DemoHookUseMemo from './Hooks/DemoHookUseMemo'
 import DemoUseRef from './Hooks/DemoUseRef'
 import DemoUseReducer from './Hooks/DemoUseReducer'
+import DemoUseContext from './Hooks/DemoUseContext'
+import ContextProvider from './Hooks/Context/ContextProvider'
 
 export default class App extends Component {
 
 
   render() {
     return (
-      <div>
+      <ContextProvider>
           {/* <UserProfile /> */}
           {/* <DemoJSS /> */}
           {/* <DemoTheme /> */}
@@ -28,7 +30,8 @@ export default class App extends Component {
           {/* <DemoHookUseMemo /> */}
           {/* <DemoUseRef /> */}
           <DemoUseReducer />
-      </div>
+          {/* <DemoUseContext /> */}
+      </ContextProvider>
     )
   }
 }
