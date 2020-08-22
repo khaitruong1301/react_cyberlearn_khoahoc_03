@@ -9,6 +9,7 @@ import DemoHookUseEffect from './Hooks/DemoHookUseEffect'
 import DemoHookUseCallBack from './Hooks/DemoHookUseCallBack'
 import DemoHookUseMemo from './Hooks/DemoHookUseMemo'
 import DemoUseRef from './Hooks/DemoUseRef'
+import DemoUseReducer from './Hooks/DemoUseReducer'
 
 export default class App extends Component {
 
@@ -25,7 +26,8 @@ export default class App extends Component {
           {/* <DemoHookUseEffect /> */}
           {/* <DemoHookUseCallBack /> */}
           {/* <DemoHookUseMemo /> */}
-          <DemoUseRef />
+          {/* <DemoUseRef /> */}
+          <DemoUseReducer />
       </div>
     )
   }
