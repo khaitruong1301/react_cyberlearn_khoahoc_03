@@ -8,6 +8,7 @@ import DemoHookUseState from './Hooks/DemoHookUseState'
 import DemoHookUseEffect from './Hooks/DemoHookUseEffect'
 import DemoHookUseCallBack from './Hooks/DemoHookUseCallBack'
 import DemoHookUseMemo from './Hooks/DemoHookUseMemo'
+import DemoUseRef from './Hooks/DemoUseRef'
 
 export default class App extends Component {
 
@@ -23,7 +24,8 @@ export default class App extends Component {
           {/* <DemoHookUseState /> */}
           {/* <DemoHookUseEffect /> */}
           {/* <DemoHookUseCallBack /> */}
-          <DemoHookUseMemo />
+          {/* <DemoHookUseMemo /> */}
+          <DemoUseRef />
       </div>
     )
   }
