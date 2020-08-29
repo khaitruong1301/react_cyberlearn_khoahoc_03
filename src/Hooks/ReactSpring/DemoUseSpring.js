@@ -12,7 +12,7 @@ export default function DemoUseSpring(props) {
 
     const propsAnimNumber = useSpring(
         {num: 200,color:'red', from : {num:10,color:'black'},
-        config:{duration:3000}
+        config:{duration:500}
     
     })
 

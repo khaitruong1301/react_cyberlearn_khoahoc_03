@@ -14,6 +14,7 @@ import DemoUseContext from './Hooks/DemoUseContext'
 import ContextProvider from './Hooks/Context/ContextProvider'
 import DemoReduxApp from './Hooks/DemoReduxApp'
 import DemoUseSpring from './Hooks/ReactSpring/DemoUseSpring'
+import Ex2UseSpring from './Hooks/ReactSpring/Ex2UseSpring'
 
 export default class App extends Component {
 
@@ -34,7 +35,8 @@ export default class App extends Component {
           {/* <DemoUseReducer /> */}
           {/* <DemoUseContext /> */}
           {/* <DemoReduxApp /> */}
-          <DemoUseSpring />
+          {/* <DemoUseSpring /> */}
+          <Ex2UseSpring />
       </ContextProvider>
     )
   }
