@@ -18,6 +18,7 @@ import Ex2UseSpring from './Hooks/ReactSpring/Ex2UseSpring'
 import Ex3UseSprings from './Hooks/ReactSpring/Ex3UseSprings'
 import Ex4UseTrail from './Hooks/ReactSpring/Ex4UseTrail'
 import Ex5UseTransition from './Hooks/ReactSpring/Ex5UseTransition'
+import Ex6UseChain from './Hooks/ReactSpring/Ex6UseChain'
 
 export default class App extends Component {
 
@@ -42,7 +43,8 @@ export default class App extends Component {
           {/* <Ex2UseSpring /> */}
           {/* <Ex3UseSprings /> */}
           {/* <Ex4UseTrail /> */}
-          <Ex5UseTransition />
+          {/* <Ex5UseTransition /> */}
+          <Ex6UseChain />
       </ContextProvider>
     )
   }
