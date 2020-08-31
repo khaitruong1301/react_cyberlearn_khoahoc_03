@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useTrail, animated } from 'react-spring';
-import { set } from 'lodash';
 
 
 const items = [
