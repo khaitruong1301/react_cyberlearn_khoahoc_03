@@ -1,0 +1,70 @@
+/* * { box-sizing: border-box; } */
+
+@font-face {
+  font-family: 'Pony';
+  src: url('./Pony.ttf');
+}
+
+#BaiTapGameBauCua {
+  font-family: 'Pony';
+  background-color: rgb(255, 155, 2);
+  min-height: 1500px;
+}
+
+#BaiTapGameBauCua h3,#BaiTapGameBauCua h1, #BaiTapGameBauCua h2{
+  font-family: 'Pony';
+  
+}
+
+
+.scene {
+  width: 50px;
+  height: 50px;
+  margin-top: 80px;
+  perspective: 50px;
+}
+
+.cube {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform infinite;
+  transform: translateZ(-25px) ;
+
+}
+
+
+.cube__face {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+  line-height: 40px;
+  font-size: 5px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+
+.front  { 
+  transform: rotateY(0deg) rotateX(0deg) rotateZ(0deg) translateZ(25px);
+ }
+.right  { 
+  transform: rotateY( 90deg) rotateX(0deg) rotateZ(0deg)  translateZ(25px);
+ }
+.back   { 
+  transform: rotateY(180deg) rotateX(0deg) rotateZ(0deg)  translateZ(25px);
+ }
+.left   { 
+  transform: rotateY(-90deg) rotateX(0deg) rotateZ(0deg)  translateZ(25px);
+ }
+.top    { 
+  transform: rotateX( 90deg) rotateY(0deg) rotateZ(0deg)  translateZ(25px);
+ }
+.bottom { 
+  transform: rotateX(-90deg) rotateY(0deg) rotate(0deg)  translateZ(25px);
+ }
+
+label { margin-right: 10px; }
