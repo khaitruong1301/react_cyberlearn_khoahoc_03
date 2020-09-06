@@ -1,13 +1,15 @@
 import React from 'react'
 import { head, deburr } from 'lodash';
 import XucXac from './XucXac';
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 
 
 export default function DanhSachXucXac(props) {
 
+    const dispatch = useDispatch();
+
+
     const mangXucXac = useSelector(state => state.BaiTapGameBauCuaReducer.mangXucXac);
-    console.log(mangXucXac)
     return (
         <div className="mt-5 ml-5" >
             <div className="bg-white" style={{ width: 300, height: 300, borderRadius: 150,paddingLeft:10 }}>
@@ -36,7 +38,12 @@ export default function DanhSachXucXac(props) {
                 </div>
             </div>
             <div style={{ marginLeft: '20%', marginTop: '5%' }}>
-                <button className="btn btn-success p2" style={{ fontSize: '25px' }}>Xốc</button>
+                <button onClick={()=>{
+                    dispatch({
+                        type:'PLAY_GAME_BAU_CUA',
+
+                    })
+                }} className="btn btn-success p2" style={{ fontSize: '25px' }}>Xốc</button>
 
             </div>
         </div>
