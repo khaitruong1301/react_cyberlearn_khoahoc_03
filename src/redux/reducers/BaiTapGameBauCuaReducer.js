@@ -39,6 +39,7 @@ export default (state = initialState, action) => {
             }
 
             state.danhSachCuoc = danhSachCuocUpdate;
+            return {...state};
         }
 
         case 'PLAY_GAME_BAU_CUA': {
