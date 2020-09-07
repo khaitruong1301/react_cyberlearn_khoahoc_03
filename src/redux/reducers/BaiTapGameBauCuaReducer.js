@@ -27,9 +27,11 @@ export default (state = initialState, action) => {
             const danhSachCuocUpdate = [...state.danhSachCuoc];
             const index = danhSachCuocUpdate.findIndex(qc => qc.ma === action.quanCuoc.ma);
             if (index != -1) {
-                if (action.tangGiam && state.tongDiem > 0) {
-                    danhSachCuocUpdate[index].diemCuoc += 100;
-                    state.tongDiem -= 100;
+                if (action.tangGiam) {
+                    if (state.tongDiem > 0) {
+                        danhSachCuocUpdate[index].diemCuoc += 100;
+                        state.tongDiem -= 100;
+                    }
                 } else {
                     if (danhSachCuocUpdate[index].diemCuoc > 0) {
                         danhSachCuocUpdate[index].diemCuoc -= 100;
@@ -56,35 +58,35 @@ export default (state = initialState, action) => {
             state.mangXucXac = mangXucXacNgauNhien;
             console.log('mangXXNN', state.mangXucXac)
             //Xử lý tăng điểm thưởng
-            mangXucXacNgauNhien.forEach((xucXacNN,index) => {
+            mangXucXacNgauNhien.forEach((xucXacNN, index) => {
 
-                let indexDSCuoc = state.danhSachCuoc.findIndex(qc=>qc.ma === xucXacNN.ma);
-                if(index!==-1){
+                let indexDSCuoc = state.danhSachCuoc.findIndex(qc => qc.ma === xucXacNN.ma);
+                if (index !== -1) {
                     state.tongDiem += state.danhSachCuoc[indexDSCuoc].diemCuoc;
                 }
-            }) 
+            })
 
             //Xử lý hoàn tiền
-            state.danhSachCuoc.forEach((qc,index)=>{
-                let indexXucXacNN = mangXucXacNgauNhien.findIndex(xxnn=>xxnn.ma === qc.ma);
-                if(indexXucXacNN!==-1){
+            state.danhSachCuoc.forEach((qc, index) => {
+                let indexXucXacNN = mangXucXacNgauNhien.findIndex(xxnn => xxnn.ma === qc.ma);
+                if (indexXucXacNN !== -1) {
                     state.tongDiem += qc.diemCuoc;
                 }
             })
-            
+
             //Xử lý làm mới game
-            state.danhSachCuoc = state.danhSachCuoc.map((qc,index) => {
-              return {...qc,diemCuoc:0} 
+            state.danhSachCuoc = state.danhSachCuoc.map((qc, index) => {
+                return { ...qc, diemCuoc: 0 }
             })
             return { ...state }
         }
 
         case 'CHOI_LAI': {
             state.tongDiem = 1000;
-            state.danhSachCuoc = state.danhSachCuoc.map((qc,index) => {
-                return {...qc,diemCuoc:0} 
-              });
-            return {...state}
+            state.danhSachCuoc = state.danhSachCuoc.map((qc, index) => {
+                return { ...qc, diemCuoc: 0 }
+            });
+            return { ...state }
         }
 
 
