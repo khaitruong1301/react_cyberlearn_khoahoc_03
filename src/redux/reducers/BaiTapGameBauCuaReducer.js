@@ -63,12 +63,30 @@ export default (state = initialState, action) => {
                     state.tongDiem += state.danhSachCuoc[indexDSCuoc].diemCuoc;
                 }
             }) 
-            
-            
 
-
+            //Xử lý hoàn tiền
+            state.danhSachCuoc.forEach((qc,index)=>{
+                let indexXucXacNN = mangXucXacNgauNhien.findIndex(xxnn=>xxnn.ma === qc.ma);
+                if(indexXucXacNN!==-1){
+                    state.tongDiem += qc.diemCuoc;
+                }
+            })
+            
+            //Xử lý làm mới game
+            state.danhSachCuoc = state.danhSachCuoc.map((qc,index) => {
+              return {...qc,diemCuoc:0} 
+            })
             return { ...state }
         }
+
+        case 'CHOI_LAI': {
+            state.tongDiem = 1000;
+            state.danhSachCuoc = state.danhSachCuoc.map((qc,index) => {
+                return {...qc,diemCuoc:0} 
+              });
+            return {...state}
+        }
+
 
         default:
             return state
